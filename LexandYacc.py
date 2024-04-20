@@ -3,7 +3,7 @@ import ply.yacc as yacc
 import math
 
 #our tokens
-tokens = ( 'NUMBER', 'PLUS', 'MINUS', 'TIMES', 'DIVIDE', 'LPAREN', 'RPAREN', 'SIN', 'COS', 'TAN')
+tokens = ( 'NUMBER', 'PLUS', 'MINUS', 'TIMES', 'DIVIDE', 'LPAREN', 'RPAREN', 'SIN', 'COS', 'TAN', 'LN', 'LOG', 'EXP')
 
 # Regular expression rules for simple tokens
 t_PLUS = r'\+'
@@ -16,6 +16,9 @@ t_RPAREN = r'\)'
 t_SIN = r'sin'
 t_COS = r'cos'
 t_TAN = r'tan'
+t_LN = r'ln'
+t_LOG = r'log'
+t_EXP = r'exp'
 #our rules for our tokens
 
 #creation of a token
@@ -120,6 +123,18 @@ def p_factor_tan(p):
 
     if trig == 'tan':
         p[0] = math.tan(angle)
+
+def p_factor_ln(p):
+    'factor : LN LPAREN expression RPAREN'
+    p[0] = math.log(p[3])
+
+def p_factor_log(p):
+    'factor : LOG LPAREN expression RPAREN'
+    p[0] = math.log10(p[3])
+
+def p_factor_exp(p):
+    'factor : EXP LPAREN expression RPAREN'
+    p[0] = math.exp(p[3])
 
 # Error rule for syntax errors
 def p_error(p):
