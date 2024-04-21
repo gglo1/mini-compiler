@@ -3,7 +3,7 @@ import ply.yacc as yacc
 import math
 
 #our tokens
-
+symbol_table={}
 reserved = {
    'if' : 'IF',
    'then' : 'THEN',
@@ -126,7 +126,9 @@ def p_expression_equal(p):
    
 def p_ID_equal(p):
     'expression : ID EQ expression'
-    p[0] = p[1] == p[3]
+    symbol_table[p[1]] = p[3]
+    p[0] = f"Assigned value {p[3]} to identifier {p[1]}"
+    print(symbol_table)
 
 def p_expression_not_equal(p):
     'expression : expression NEQ expression'
