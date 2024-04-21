@@ -6,9 +6,9 @@ _tabversion = '3.10'
 
 _lr_method = 'LALR'
 
-_lr_signature = 'COS DIVIDE EXP LN LOG LPAREN MINUS NUMBER PLUS RPAREN SIN TAN TIMESexpression : expression PLUS termexpression : expression MINUS termexpression : termterm : term TIMES factorterm : term DIVIDE factorterm : factorfactor : NUMBERfactor : LPAREN expression RPARENfactor : SIN LPAREN expression RPARENfactor : COS LPAREN expression RPARENfactor : TAN LPAREN expression RPARENfactor : LN LPAREN expression RPARENfactor : LOG LPAREN expression RPARENfactor : EXP LPAREN expression RPAREN'
+_lr_signature = 'leftPLUSMINUSleftTIMESDIVIDErightPOWERCOS DIVIDE EXP LN LOG LPAREN MINUS NUMBER PLUS POWER RPAREN SIN TAN TIMESexpression : expression PLUS termexpression : expression MINUS termexpression : termterm : term TIMES factorterm : term DIVIDE factorterm : factorfactor : NUMBERfactor : LPAREN expression RPARENfactor : factor POWER factorfactor : SIN LPAREN expression RPARENfactor : COS LPAREN expression RPARENfactor : TAN LPAREN expression RPARENfactor : LN LPAREN expression RPARENfactor : LOG LPAREN expression RPARENfactor : EXP LPAREN expression RPAREN'
     
-_lr_action_items = {'NUMBER':([0,5,12,13,14,15,17,18,19,20,21,22,],[4,4,4,4,4,4,4,4,4,4,4,4,]),'LPAREN':([0,5,6,7,8,9,10,11,12,13,14,15,17,18,19,20,21,22,],[5,5,17,18,19,20,21,22,5,5,5,5,5,5,5,5,5,5,]),'SIN':([0,5,12,13,14,15,17,18,19,20,21,22,],[6,6,6,6,6,6,6,6,6,6,6,6,]),'COS':([0,5,12,13,14,15,17,18,19,20,21,22,],[7,7,7,7,7,7,7,7,7,7,7,7,]),'TAN':([0,5,12,13,14,15,17,18,19,20,21,22,],[8,8,8,8,8,8,8,8,8,8,8,8,]),'LN':([0,5,12,13,14,15,17,18,19,20,21,22,],[9,9,9,9,9,9,9,9,9,9,9,9,]),'LOG':([0,5,12,13,14,15,17,18,19,20,21,22,],[10,10,10,10,10,10,10,10,10,10,10,10,]),'EXP':([0,5,12,13,14,15,17,18,19,20,21,22,],[11,11,11,11,11,11,11,11,11,11,11,11,]),'$end':([1,2,3,4,23,24,25,26,27,34,35,36,37,38,39,],[0,-3,-6,-7,-1,-2,-4,-5,-8,-9,-10,-11,-12,-13,-14,]),'PLUS':([1,2,3,4,16,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,],[12,-3,-6,-7,12,-1,-2,-4,-5,-8,12,12,12,12,12,12,-9,-10,-11,-12,-13,-14,]),'MINUS':([1,2,3,4,16,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,],[13,-3,-6,-7,13,-1,-2,-4,-5,-8,13,13,13,13,13,13,-9,-10,-11,-12,-13,-14,]),'RPAREN':([2,3,4,16,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,],[-3,-6,-7,27,-1,-2,-4,-5,-8,34,35,36,37,38,39,-9,-10,-11,-12,-13,-14,]),'TIMES':([2,3,4,23,24,25,26,27,34,35,36,37,38,39,],[14,-6,-7,14,14,-4,-5,-8,-9,-10,-11,-12,-13,-14,]),'DIVIDE':([2,3,4,23,24,25,26,27,34,35,36,37,38,39,],[15,-6,-7,15,15,-4,-5,-8,-9,-10,-11,-12,-13,-14,]),}
+_lr_action_items = {'NUMBER':([0,5,12,13,14,15,16,18,19,20,21,22,23,],[4,4,4,4,4,4,4,4,4,4,4,4,4,]),'LPAREN':([0,5,6,7,8,9,10,11,12,13,14,15,16,18,19,20,21,22,23,],[5,5,18,19,20,21,22,23,5,5,5,5,5,5,5,5,5,5,5,]),'SIN':([0,5,12,13,14,15,16,18,19,20,21,22,23,],[6,6,6,6,6,6,6,6,6,6,6,6,6,]),'COS':([0,5,12,13,14,15,16,18,19,20,21,22,23,],[7,7,7,7,7,7,7,7,7,7,7,7,7,]),'TAN':([0,5,12,13,14,15,16,18,19,20,21,22,23,],[8,8,8,8,8,8,8,8,8,8,8,8,8,]),'LN':([0,5,12,13,14,15,16,18,19,20,21,22,23,],[9,9,9,9,9,9,9,9,9,9,9,9,9,]),'LOG':([0,5,12,13,14,15,16,18,19,20,21,22,23,],[10,10,10,10,10,10,10,10,10,10,10,10,10,]),'EXP':([0,5,12,13,14,15,16,18,19,20,21,22,23,],[11,11,11,11,11,11,11,11,11,11,11,11,11,]),'$end':([1,2,3,4,24,25,26,27,28,29,36,37,38,39,40,41,],[0,-3,-6,-7,-1,-2,-4,-5,-9,-8,-10,-11,-12,-13,-14,-15,]),'PLUS':([1,2,3,4,17,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,],[12,-3,-6,-7,12,-1,-2,-4,-5,-9,-8,12,12,12,12,12,12,-10,-11,-12,-13,-14,-15,]),'MINUS':([1,2,3,4,17,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,],[13,-3,-6,-7,13,-1,-2,-4,-5,-9,-8,13,13,13,13,13,13,-10,-11,-12,-13,-14,-15,]),'RPAREN':([2,3,4,17,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,],[-3,-6,-7,29,-1,-2,-4,-5,-9,-8,36,37,38,39,40,41,-10,-11,-12,-13,-14,-15,]),'TIMES':([2,3,4,24,25,26,27,28,29,36,37,38,39,40,41,],[14,-6,-7,14,14,-4,-5,-9,-8,-10,-11,-12,-13,-14,-15,]),'DIVIDE':([2,3,4,24,25,26,27,28,29,36,37,38,39,40,41,],[15,-6,-7,15,15,-4,-5,-9,-8,-10,-11,-12,-13,-14,-15,]),'POWER':([3,4,26,27,28,29,36,37,38,39,40,41,],[16,-7,16,16,16,-8,-10,-11,-12,-13,-14,-15,]),}
 
 _lr_action = {}
 for _k, _v in _lr_action_items.items():
@@ -17,7 +17,7 @@ for _k, _v in _lr_action_items.items():
       _lr_action[_x][_k] = _y
 del _lr_action_items
 
-_lr_goto_items = {'expression':([0,5,17,18,19,20,21,22,],[1,16,28,29,30,31,32,33,]),'term':([0,5,12,13,17,18,19,20,21,22,],[2,2,23,24,2,2,2,2,2,2,]),'factor':([0,5,12,13,14,15,17,18,19,20,21,22,],[3,3,3,3,25,26,3,3,3,3,3,3,]),}
+_lr_goto_items = {'expression':([0,5,18,19,20,21,22,23,],[1,17,30,31,32,33,34,35,]),'term':([0,5,12,13,18,19,20,21,22,23,],[2,2,24,25,2,2,2,2,2,2,]),'factor':([0,5,12,13,14,15,16,18,19,20,21,22,23,],[3,3,3,3,26,27,28,3,3,3,3,3,3,]),}
 
 _lr_goto = {}
 for _k, _v in _lr_goto_items.items():
@@ -27,18 +27,19 @@ for _k, _v in _lr_goto_items.items():
 del _lr_goto_items
 _lr_productions = [
   ("S' -> expression","S'",1,None,None,None),
-  ('expression -> expression PLUS term','expression',3,'p_expression_plus','LexandYacc.py',60),
-  ('expression -> expression MINUS term','expression',3,'p_expression_minus','LexandYacc.py',64),
-  ('expression -> term','expression',1,'p_expression_term','LexandYacc.py',68),
-  ('term -> term TIMES factor','term',3,'p_term_times','LexandYacc.py',72),
-  ('term -> term DIVIDE factor','term',3,'p_term_div','LexandYacc.py',76),
-  ('term -> factor','term',1,'p_term_factor','LexandYacc.py',80),
-  ('factor -> NUMBER','factor',1,'p_factor_num','LexandYacc.py',84),
-  ('factor -> LPAREN expression RPAREN','factor',3,'p_factor_expr','LexandYacc.py',88),
-  ('factor -> SIN LPAREN expression RPAREN','factor',4,'p_factor_sin','LexandYacc.py',92),
-  ('factor -> COS LPAREN expression RPAREN','factor',4,'p_factor_cos','LexandYacc.py',104),
-  ('factor -> TAN LPAREN expression RPAREN','factor',4,'p_factor_tan','LexandYacc.py',116),
-  ('factor -> LN LPAREN expression RPAREN','factor',4,'p_factor_ln','LexandYacc.py',128),
-  ('factor -> LOG LPAREN expression RPAREN','factor',4,'p_factor_log','LexandYacc.py',132),
-  ('factor -> EXP LPAREN expression RPAREN','factor',4,'p_factor_exp','LexandYacc.py',136),
+  ('expression -> expression PLUS term','expression',3,'p_expression_plus','LexandYacc.py',69),
+  ('expression -> expression MINUS term','expression',3,'p_expression_minus','LexandYacc.py',73),
+  ('expression -> term','expression',1,'p_expression_term','LexandYacc.py',77),
+  ('term -> term TIMES factor','term',3,'p_term_times','LexandYacc.py',81),
+  ('term -> term DIVIDE factor','term',3,'p_term_div','LexandYacc.py',85),
+  ('term -> factor','term',1,'p_term_factor','LexandYacc.py',89),
+  ('factor -> NUMBER','factor',1,'p_factor_num','LexandYacc.py',93),
+  ('factor -> LPAREN expression RPAREN','factor',3,'p_factor_expr','LexandYacc.py',97),
+  ('factor -> factor POWER factor','factor',3,'p_factor_power','LexandYacc.py',101),
+  ('factor -> SIN LPAREN expression RPAREN','factor',4,'p_factor_sin','LexandYacc.py',105),
+  ('factor -> COS LPAREN expression RPAREN','factor',4,'p_factor_cos','LexandYacc.py',117),
+  ('factor -> TAN LPAREN expression RPAREN','factor',4,'p_factor_tan','LexandYacc.py',129),
+  ('factor -> LN LPAREN expression RPAREN','factor',4,'p_factor_ln','LexandYacc.py',141),
+  ('factor -> LOG LPAREN expression RPAREN','factor',4,'p_factor_log','LexandYacc.py',145),
+  ('factor -> EXP LPAREN expression RPAREN','factor',4,'p_factor_exp','LexandYacc.py',149),
 ]

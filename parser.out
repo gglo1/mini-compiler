@@ -11,34 +11,36 @@ Rule 5     term -> term DIVIDE factor
 Rule 6     term -> factor
 Rule 7     factor -> NUMBER
 Rule 8     factor -> LPAREN expression RPAREN
-Rule 9     factor -> SIN LPAREN expression RPAREN
-Rule 10    factor -> COS LPAREN expression RPAREN
-Rule 11    factor -> TAN LPAREN expression RPAREN
-Rule 12    factor -> LN LPAREN expression RPAREN
-Rule 13    factor -> LOG LPAREN expression RPAREN
-Rule 14    factor -> EXP LPAREN expression RPAREN
+Rule 9     factor -> factor POWER factor
+Rule 10    factor -> SIN LPAREN expression RPAREN
+Rule 11    factor -> COS LPAREN expression RPAREN
+Rule 12    factor -> TAN LPAREN expression RPAREN
+Rule 13    factor -> LN LPAREN expression RPAREN
+Rule 14    factor -> LOG LPAREN expression RPAREN
+Rule 15    factor -> EXP LPAREN expression RPAREN
 
 Terminals, with rules where they appear
 
-COS                  : 10
+COS                  : 11
 DIVIDE               : 5
-EXP                  : 14
-LN                   : 12
-LOG                  : 13
-LPAREN               : 8 9 10 11 12 13 14
+EXP                  : 15
+LN                   : 13
+LOG                  : 14
+LPAREN               : 8 10 11 12 13 14 15
 MINUS                : 2
 NUMBER               : 7
 PLUS                 : 1
-RPAREN               : 8 9 10 11 12 13 14
-SIN                  : 9
-TAN                  : 11
+POWER                : 9
+RPAREN               : 8 10 11 12 13 14 15
+SIN                  : 10
+TAN                  : 12
 TIMES                : 4
 error                : 
 
 Nonterminals, with rules where they appear
 
-expression           : 1 2 8 9 10 11 12 13 14 0
-factor               : 4 5 6
+expression           : 1 2 8 10 11 12 13 14 15 0
+factor               : 4 5 6 9 9
 term                 : 1 2 3 4 5
 
 Parsing method: LALR
@@ -54,12 +56,13 @@ state 0
     (6) term -> . factor
     (7) factor -> . NUMBER
     (8) factor -> . LPAREN expression RPAREN
-    (9) factor -> . SIN LPAREN expression RPAREN
-    (10) factor -> . COS LPAREN expression RPAREN
-    (11) factor -> . TAN LPAREN expression RPAREN
-    (12) factor -> . LN LPAREN expression RPAREN
-    (13) factor -> . LOG LPAREN expression RPAREN
-    (14) factor -> . EXP LPAREN expression RPAREN
+    (9) factor -> . factor POWER factor
+    (10) factor -> . SIN LPAREN expression RPAREN
+    (11) factor -> . COS LPAREN expression RPAREN
+    (12) factor -> . TAN LPAREN expression RPAREN
+    (13) factor -> . LN LPAREN expression RPAREN
+    (14) factor -> . LOG LPAREN expression RPAREN
+    (15) factor -> . EXP LPAREN expression RPAREN
 
     NUMBER          shift and go to state 4
     LPAREN          shift and go to state 5
@@ -101,6 +104,7 @@ state 2
 state 3
 
     (6) term -> factor .
+    (9) factor -> factor . POWER factor
 
     TIMES           reduce using rule 6 (term -> factor .)
     DIVIDE          reduce using rule 6 (term -> factor .)
@@ -108,12 +112,14 @@ state 3
     MINUS           reduce using rule 6 (term -> factor .)
     $end            reduce using rule 6 (term -> factor .)
     RPAREN          reduce using rule 6 (term -> factor .)
+    POWER           shift and go to state 16
 
 
 state 4
 
     (7) factor -> NUMBER .
 
+    POWER           reduce using rule 7 (factor -> NUMBER .)
     TIMES           reduce using rule 7 (factor -> NUMBER .)
     DIVIDE          reduce using rule 7 (factor -> NUMBER .)
     PLUS            reduce using rule 7 (factor -> NUMBER .)
@@ -133,12 +139,13 @@ state 5
     (6) term -> . factor
     (7) factor -> . NUMBER
     (8) factor -> . LPAREN expression RPAREN
-    (9) factor -> . SIN LPAREN expression RPAREN
-    (10) factor -> . COS LPAREN expression RPAREN
-    (11) factor -> . TAN LPAREN expression RPAREN
-    (12) factor -> . LN LPAREN expression RPAREN
-    (13) factor -> . LOG LPAREN expression RPAREN
-    (14) factor -> . EXP LPAREN expression RPAREN
+    (9) factor -> . factor POWER factor
+    (10) factor -> . SIN LPAREN expression RPAREN
+    (11) factor -> . COS LPAREN expression RPAREN
+    (12) factor -> . TAN LPAREN expression RPAREN
+    (13) factor -> . LN LPAREN expression RPAREN
+    (14) factor -> . LOG LPAREN expression RPAREN
+    (15) factor -> . EXP LPAREN expression RPAREN
 
     NUMBER          shift and go to state 4
     LPAREN          shift and go to state 5
@@ -149,50 +156,50 @@ state 5
     LOG             shift and go to state 10
     EXP             shift and go to state 11
 
-    expression                     shift and go to state 16
+    expression                     shift and go to state 17
     term                           shift and go to state 2
     factor                         shift and go to state 3
 
 state 6
 
-    (9) factor -> SIN . LPAREN expression RPAREN
-
-    LPAREN          shift and go to state 17
-
-
-state 7
-
-    (10) factor -> COS . LPAREN expression RPAREN
+    (10) factor -> SIN . LPAREN expression RPAREN
 
     LPAREN          shift and go to state 18
 
 
-state 8
+state 7
 
-    (11) factor -> TAN . LPAREN expression RPAREN
+    (11) factor -> COS . LPAREN expression RPAREN
 
     LPAREN          shift and go to state 19
 
 
-state 9
+state 8
 
-    (12) factor -> LN . LPAREN expression RPAREN
+    (12) factor -> TAN . LPAREN expression RPAREN
 
     LPAREN          shift and go to state 20
 
 
-state 10
+state 9
 
-    (13) factor -> LOG . LPAREN expression RPAREN
+    (13) factor -> LN . LPAREN expression RPAREN
 
     LPAREN          shift and go to state 21
 
 
-state 11
+state 10
 
-    (14) factor -> EXP . LPAREN expression RPAREN
+    (14) factor -> LOG . LPAREN expression RPAREN
 
     LPAREN          shift and go to state 22
+
+
+state 11
+
+    (15) factor -> EXP . LPAREN expression RPAREN
+
+    LPAREN          shift and go to state 23
 
 
 state 12
@@ -203,39 +210,13 @@ state 12
     (6) term -> . factor
     (7) factor -> . NUMBER
     (8) factor -> . LPAREN expression RPAREN
-    (9) factor -> . SIN LPAREN expression RPAREN
-    (10) factor -> . COS LPAREN expression RPAREN
-    (11) factor -> . TAN LPAREN expression RPAREN
-    (12) factor -> . LN LPAREN expression RPAREN
-    (13) factor -> . LOG LPAREN expression RPAREN
-    (14) factor -> . EXP LPAREN expression RPAREN
-
-    NUMBER          shift and go to state 4
-    LPAREN          shift and go to state 5
-    SIN             shift and go to state 6
-    COS             shift and go to state 7
-    TAN             shift and go to state 8
-    LN              shift and go to state 9
-    LOG             shift and go to state 10
-    EXP             shift and go to state 11
-
-    term                           shift and go to state 23
-    factor                         shift and go to state 3
-
-state 13
-
-    (2) expression -> expression MINUS . term
-    (4) term -> . term TIMES factor
-    (5) term -> . term DIVIDE factor
-    (6) term -> . factor
-    (7) factor -> . NUMBER
-    (8) factor -> . LPAREN expression RPAREN
-    (9) factor -> . SIN LPAREN expression RPAREN
-    (10) factor -> . COS LPAREN expression RPAREN
-    (11) factor -> . TAN LPAREN expression RPAREN
-    (12) factor -> . LN LPAREN expression RPAREN
-    (13) factor -> . LOG LPAREN expression RPAREN
-    (14) factor -> . EXP LPAREN expression RPAREN
+    (9) factor -> . factor POWER factor
+    (10) factor -> . SIN LPAREN expression RPAREN
+    (11) factor -> . COS LPAREN expression RPAREN
+    (12) factor -> . TAN LPAREN expression RPAREN
+    (13) factor -> . LN LPAREN expression RPAREN
+    (14) factor -> . LOG LPAREN expression RPAREN
+    (15) factor -> . EXP LPAREN expression RPAREN
 
     NUMBER          shift and go to state 4
     LPAREN          shift and go to state 5
@@ -249,17 +230,21 @@ state 13
     term                           shift and go to state 24
     factor                         shift and go to state 3
 
-state 14
+state 13
 
-    (4) term -> term TIMES . factor
+    (2) expression -> expression MINUS . term
+    (4) term -> . term TIMES factor
+    (5) term -> . term DIVIDE factor
+    (6) term -> . factor
     (7) factor -> . NUMBER
     (8) factor -> . LPAREN expression RPAREN
-    (9) factor -> . SIN LPAREN expression RPAREN
-    (10) factor -> . COS LPAREN expression RPAREN
-    (11) factor -> . TAN LPAREN expression RPAREN
-    (12) factor -> . LN LPAREN expression RPAREN
-    (13) factor -> . LOG LPAREN expression RPAREN
-    (14) factor -> . EXP LPAREN expression RPAREN
+    (9) factor -> . factor POWER factor
+    (10) factor -> . SIN LPAREN expression RPAREN
+    (11) factor -> . COS LPAREN expression RPAREN
+    (12) factor -> . TAN LPAREN expression RPAREN
+    (13) factor -> . LN LPAREN expression RPAREN
+    (14) factor -> . LOG LPAREN expression RPAREN
+    (15) factor -> . EXP LPAREN expression RPAREN
 
     NUMBER          shift and go to state 4
     LPAREN          shift and go to state 5
@@ -270,19 +255,21 @@ state 14
     LOG             shift and go to state 10
     EXP             shift and go to state 11
 
-    factor                         shift and go to state 25
+    term                           shift and go to state 25
+    factor                         shift and go to state 3
 
-state 15
+state 14
 
-    (5) term -> term DIVIDE . factor
+    (4) term -> term TIMES . factor
     (7) factor -> . NUMBER
     (8) factor -> . LPAREN expression RPAREN
-    (9) factor -> . SIN LPAREN expression RPAREN
-    (10) factor -> . COS LPAREN expression RPAREN
-    (11) factor -> . TAN LPAREN expression RPAREN
-    (12) factor -> . LN LPAREN expression RPAREN
-    (13) factor -> . LOG LPAREN expression RPAREN
-    (14) factor -> . EXP LPAREN expression RPAREN
+    (9) factor -> . factor POWER factor
+    (10) factor -> . SIN LPAREN expression RPAREN
+    (11) factor -> . COS LPAREN expression RPAREN
+    (12) factor -> . TAN LPAREN expression RPAREN
+    (13) factor -> . LN LPAREN expression RPAREN
+    (14) factor -> . LOG LPAREN expression RPAREN
+    (15) factor -> . EXP LPAREN expression RPAREN
 
     NUMBER          shift and go to state 4
     LPAREN          shift and go to state 5
@@ -295,51 +282,68 @@ state 15
 
     factor                         shift and go to state 26
 
+state 15
+
+    (5) term -> term DIVIDE . factor
+    (7) factor -> . NUMBER
+    (8) factor -> . LPAREN expression RPAREN
+    (9) factor -> . factor POWER factor
+    (10) factor -> . SIN LPAREN expression RPAREN
+    (11) factor -> . COS LPAREN expression RPAREN
+    (12) factor -> . TAN LPAREN expression RPAREN
+    (13) factor -> . LN LPAREN expression RPAREN
+    (14) factor -> . LOG LPAREN expression RPAREN
+    (15) factor -> . EXP LPAREN expression RPAREN
+
+    NUMBER          shift and go to state 4
+    LPAREN          shift and go to state 5
+    SIN             shift and go to state 6
+    COS             shift and go to state 7
+    TAN             shift and go to state 8
+    LN              shift and go to state 9
+    LOG             shift and go to state 10
+    EXP             shift and go to state 11
+
+    factor                         shift and go to state 27
+
 state 16
+
+    (9) factor -> factor POWER . factor
+    (7) factor -> . NUMBER
+    (8) factor -> . LPAREN expression RPAREN
+    (9) factor -> . factor POWER factor
+    (10) factor -> . SIN LPAREN expression RPAREN
+    (11) factor -> . COS LPAREN expression RPAREN
+    (12) factor -> . TAN LPAREN expression RPAREN
+    (13) factor -> . LN LPAREN expression RPAREN
+    (14) factor -> . LOG LPAREN expression RPAREN
+    (15) factor -> . EXP LPAREN expression RPAREN
+
+    NUMBER          shift and go to state 4
+    LPAREN          shift and go to state 5
+    SIN             shift and go to state 6
+    COS             shift and go to state 7
+    TAN             shift and go to state 8
+    LN              shift and go to state 9
+    LOG             shift and go to state 10
+    EXP             shift and go to state 11
+
+    factor                         shift and go to state 28
+
+state 17
 
     (8) factor -> LPAREN expression . RPAREN
     (1) expression -> expression . PLUS term
     (2) expression -> expression . MINUS term
 
-    RPAREN          shift and go to state 27
+    RPAREN          shift and go to state 29
     PLUS            shift and go to state 12
     MINUS           shift and go to state 13
 
 
-state 17
-
-    (9) factor -> SIN LPAREN . expression RPAREN
-    (1) expression -> . expression PLUS term
-    (2) expression -> . expression MINUS term
-    (3) expression -> . term
-    (4) term -> . term TIMES factor
-    (5) term -> . term DIVIDE factor
-    (6) term -> . factor
-    (7) factor -> . NUMBER
-    (8) factor -> . LPAREN expression RPAREN
-    (9) factor -> . SIN LPAREN expression RPAREN
-    (10) factor -> . COS LPAREN expression RPAREN
-    (11) factor -> . TAN LPAREN expression RPAREN
-    (12) factor -> . LN LPAREN expression RPAREN
-    (13) factor -> . LOG LPAREN expression RPAREN
-    (14) factor -> . EXP LPAREN expression RPAREN
-
-    NUMBER          shift and go to state 4
-    LPAREN          shift and go to state 5
-    SIN             shift and go to state 6
-    COS             shift and go to state 7
-    TAN             shift and go to state 8
-    LN              shift and go to state 9
-    LOG             shift and go to state 10
-    EXP             shift and go to state 11
-
-    expression                     shift and go to state 28
-    term                           shift and go to state 2
-    factor                         shift and go to state 3
-
 state 18
 
-    (10) factor -> COS LPAREN . expression RPAREN
+    (10) factor -> SIN LPAREN . expression RPAREN
     (1) expression -> . expression PLUS term
     (2) expression -> . expression MINUS term
     (3) expression -> . term
@@ -348,43 +352,13 @@ state 18
     (6) term -> . factor
     (7) factor -> . NUMBER
     (8) factor -> . LPAREN expression RPAREN
-    (9) factor -> . SIN LPAREN expression RPAREN
-    (10) factor -> . COS LPAREN expression RPAREN
-    (11) factor -> . TAN LPAREN expression RPAREN
-    (12) factor -> . LN LPAREN expression RPAREN
-    (13) factor -> . LOG LPAREN expression RPAREN
-    (14) factor -> . EXP LPAREN expression RPAREN
-
-    NUMBER          shift and go to state 4
-    LPAREN          shift and go to state 5
-    SIN             shift and go to state 6
-    COS             shift and go to state 7
-    TAN             shift and go to state 8
-    LN              shift and go to state 9
-    LOG             shift and go to state 10
-    EXP             shift and go to state 11
-
-    expression                     shift and go to state 29
-    term                           shift and go to state 2
-    factor                         shift and go to state 3
-
-state 19
-
-    (11) factor -> TAN LPAREN . expression RPAREN
-    (1) expression -> . expression PLUS term
-    (2) expression -> . expression MINUS term
-    (3) expression -> . term
-    (4) term -> . term TIMES factor
-    (5) term -> . term DIVIDE factor
-    (6) term -> . factor
-    (7) factor -> . NUMBER
-    (8) factor -> . LPAREN expression RPAREN
-    (9) factor -> . SIN LPAREN expression RPAREN
-    (10) factor -> . COS LPAREN expression RPAREN
-    (11) factor -> . TAN LPAREN expression RPAREN
-    (12) factor -> . LN LPAREN expression RPAREN
-    (13) factor -> . LOG LPAREN expression RPAREN
-    (14) factor -> . EXP LPAREN expression RPAREN
+    (9) factor -> . factor POWER factor
+    (10) factor -> . SIN LPAREN expression RPAREN
+    (11) factor -> . COS LPAREN expression RPAREN
+    (12) factor -> . TAN LPAREN expression RPAREN
+    (13) factor -> . LN LPAREN expression RPAREN
+    (14) factor -> . LOG LPAREN expression RPAREN
+    (15) factor -> . EXP LPAREN expression RPAREN
 
     NUMBER          shift and go to state 4
     LPAREN          shift and go to state 5
@@ -399,9 +373,9 @@ state 19
     term                           shift and go to state 2
     factor                         shift and go to state 3
 
-state 20
+state 19
 
-    (12) factor -> LN LPAREN . expression RPAREN
+    (11) factor -> COS LPAREN . expression RPAREN
     (1) expression -> . expression PLUS term
     (2) expression -> . expression MINUS term
     (3) expression -> . term
@@ -410,12 +384,13 @@ state 20
     (6) term -> . factor
     (7) factor -> . NUMBER
     (8) factor -> . LPAREN expression RPAREN
-    (9) factor -> . SIN LPAREN expression RPAREN
-    (10) factor -> . COS LPAREN expression RPAREN
-    (11) factor -> . TAN LPAREN expression RPAREN
-    (12) factor -> . LN LPAREN expression RPAREN
-    (13) factor -> . LOG LPAREN expression RPAREN
-    (14) factor -> . EXP LPAREN expression RPAREN
+    (9) factor -> . factor POWER factor
+    (10) factor -> . SIN LPAREN expression RPAREN
+    (11) factor -> . COS LPAREN expression RPAREN
+    (12) factor -> . TAN LPAREN expression RPAREN
+    (13) factor -> . LN LPAREN expression RPAREN
+    (14) factor -> . LOG LPAREN expression RPAREN
+    (15) factor -> . EXP LPAREN expression RPAREN
 
     NUMBER          shift and go to state 4
     LPAREN          shift and go to state 5
@@ -430,9 +405,9 @@ state 20
     term                           shift and go to state 2
     factor                         shift and go to state 3
 
-state 21
+state 20
 
-    (13) factor -> LOG LPAREN . expression RPAREN
+    (12) factor -> TAN LPAREN . expression RPAREN
     (1) expression -> . expression PLUS term
     (2) expression -> . expression MINUS term
     (3) expression -> . term
@@ -441,12 +416,13 @@ state 21
     (6) term -> . factor
     (7) factor -> . NUMBER
     (8) factor -> . LPAREN expression RPAREN
-    (9) factor -> . SIN LPAREN expression RPAREN
-    (10) factor -> . COS LPAREN expression RPAREN
-    (11) factor -> . TAN LPAREN expression RPAREN
-    (12) factor -> . LN LPAREN expression RPAREN
-    (13) factor -> . LOG LPAREN expression RPAREN
-    (14) factor -> . EXP LPAREN expression RPAREN
+    (9) factor -> . factor POWER factor
+    (10) factor -> . SIN LPAREN expression RPAREN
+    (11) factor -> . COS LPAREN expression RPAREN
+    (12) factor -> . TAN LPAREN expression RPAREN
+    (13) factor -> . LN LPAREN expression RPAREN
+    (14) factor -> . LOG LPAREN expression RPAREN
+    (15) factor -> . EXP LPAREN expression RPAREN
 
     NUMBER          shift and go to state 4
     LPAREN          shift and go to state 5
@@ -461,9 +437,9 @@ state 21
     term                           shift and go to state 2
     factor                         shift and go to state 3
 
-state 22
+state 21
 
-    (14) factor -> EXP LPAREN . expression RPAREN
+    (13) factor -> LN LPAREN . expression RPAREN
     (1) expression -> . expression PLUS term
     (2) expression -> . expression MINUS term
     (3) expression -> . term
@@ -472,12 +448,13 @@ state 22
     (6) term -> . factor
     (7) factor -> . NUMBER
     (8) factor -> . LPAREN expression RPAREN
-    (9) factor -> . SIN LPAREN expression RPAREN
-    (10) factor -> . COS LPAREN expression RPAREN
-    (11) factor -> . TAN LPAREN expression RPAREN
-    (12) factor -> . LN LPAREN expression RPAREN
-    (13) factor -> . LOG LPAREN expression RPAREN
-    (14) factor -> . EXP LPAREN expression RPAREN
+    (9) factor -> . factor POWER factor
+    (10) factor -> . SIN LPAREN expression RPAREN
+    (11) factor -> . COS LPAREN expression RPAREN
+    (12) factor -> . TAN LPAREN expression RPAREN
+    (13) factor -> . LN LPAREN expression RPAREN
+    (14) factor -> . LOG LPAREN expression RPAREN
+    (15) factor -> . EXP LPAREN expression RPAREN
 
     NUMBER          shift and go to state 4
     LPAREN          shift and go to state 5
@@ -492,7 +469,71 @@ state 22
     term                           shift and go to state 2
     factor                         shift and go to state 3
 
+state 22
+
+    (14) factor -> LOG LPAREN . expression RPAREN
+    (1) expression -> . expression PLUS term
+    (2) expression -> . expression MINUS term
+    (3) expression -> . term
+    (4) term -> . term TIMES factor
+    (5) term -> . term DIVIDE factor
+    (6) term -> . factor
+    (7) factor -> . NUMBER
+    (8) factor -> . LPAREN expression RPAREN
+    (9) factor -> . factor POWER factor
+    (10) factor -> . SIN LPAREN expression RPAREN
+    (11) factor -> . COS LPAREN expression RPAREN
+    (12) factor -> . TAN LPAREN expression RPAREN
+    (13) factor -> . LN LPAREN expression RPAREN
+    (14) factor -> . LOG LPAREN expression RPAREN
+    (15) factor -> . EXP LPAREN expression RPAREN
+
+    NUMBER          shift and go to state 4
+    LPAREN          shift and go to state 5
+    SIN             shift and go to state 6
+    COS             shift and go to state 7
+    TAN             shift and go to state 8
+    LN              shift and go to state 9
+    LOG             shift and go to state 10
+    EXP             shift and go to state 11
+
+    expression                     shift and go to state 34
+    term                           shift and go to state 2
+    factor                         shift and go to state 3
+
 state 23
+
+    (15) factor -> EXP LPAREN . expression RPAREN
+    (1) expression -> . expression PLUS term
+    (2) expression -> . expression MINUS term
+    (3) expression -> . term
+    (4) term -> . term TIMES factor
+    (5) term -> . term DIVIDE factor
+    (6) term -> . factor
+    (7) factor -> . NUMBER
+    (8) factor -> . LPAREN expression RPAREN
+    (9) factor -> . factor POWER factor
+    (10) factor -> . SIN LPAREN expression RPAREN
+    (11) factor -> . COS LPAREN expression RPAREN
+    (12) factor -> . TAN LPAREN expression RPAREN
+    (13) factor -> . LN LPAREN expression RPAREN
+    (14) factor -> . LOG LPAREN expression RPAREN
+    (15) factor -> . EXP LPAREN expression RPAREN
+
+    NUMBER          shift and go to state 4
+    LPAREN          shift and go to state 5
+    SIN             shift and go to state 6
+    COS             shift and go to state 7
+    TAN             shift and go to state 8
+    LN              shift and go to state 9
+    LOG             shift and go to state 10
+    EXP             shift and go to state 11
+
+    expression                     shift and go to state 35
+    term                           shift and go to state 2
+    factor                         shift and go to state 3
+
+state 24
 
     (1) expression -> expression PLUS term .
     (4) term -> term . TIMES factor
@@ -506,7 +547,7 @@ state 23
     DIVIDE          shift and go to state 15
 
 
-state 24
+state 25
 
     (2) expression -> expression MINUS term .
     (4) term -> term . TIMES factor
@@ -520,9 +561,10 @@ state 24
     DIVIDE          shift and go to state 15
 
 
-state 25
+state 26
 
     (4) term -> term TIMES factor .
+    (9) factor -> factor . POWER factor
 
     TIMES           reduce using rule 4 (term -> term TIMES factor .)
     DIVIDE          reduce using rule 4 (term -> term TIMES factor .)
@@ -530,11 +572,13 @@ state 25
     MINUS           reduce using rule 4 (term -> term TIMES factor .)
     $end            reduce using rule 4 (term -> term TIMES factor .)
     RPAREN          reduce using rule 4 (term -> term TIMES factor .)
+    POWER           shift and go to state 16
 
 
-state 26
+state 27
 
     (5) term -> term DIVIDE factor .
+    (9) factor -> factor . POWER factor
 
     TIMES           reduce using rule 5 (term -> term DIVIDE factor .)
     DIVIDE          reduce using rule 5 (term -> term DIVIDE factor .)
@@ -542,12 +586,30 @@ state 26
     MINUS           reduce using rule 5 (term -> term DIVIDE factor .)
     $end            reduce using rule 5 (term -> term DIVIDE factor .)
     RPAREN          reduce using rule 5 (term -> term DIVIDE factor .)
+    POWER           shift and go to state 16
 
 
-state 27
+state 28
+
+    (9) factor -> factor POWER factor .
+    (9) factor -> factor . POWER factor
+
+    TIMES           reduce using rule 9 (factor -> factor POWER factor .)
+    DIVIDE          reduce using rule 9 (factor -> factor POWER factor .)
+    PLUS            reduce using rule 9 (factor -> factor POWER factor .)
+    MINUS           reduce using rule 9 (factor -> factor POWER factor .)
+    $end            reduce using rule 9 (factor -> factor POWER factor .)
+    RPAREN          reduce using rule 9 (factor -> factor POWER factor .)
+    POWER           shift and go to state 16
+
+  ! POWER           [ reduce using rule 9 (factor -> factor POWER factor .) ]
+
+
+state 29
 
     (8) factor -> LPAREN expression RPAREN .
 
+    POWER           reduce using rule 8 (factor -> LPAREN expression RPAREN .)
     TIMES           reduce using rule 8 (factor -> LPAREN expression RPAREN .)
     DIVIDE          reduce using rule 8 (factor -> LPAREN expression RPAREN .)
     PLUS            reduce using rule 8 (factor -> LPAREN expression RPAREN .)
@@ -556,31 +618,9 @@ state 27
     RPAREN          reduce using rule 8 (factor -> LPAREN expression RPAREN .)
 
 
-state 28
-
-    (9) factor -> SIN LPAREN expression . RPAREN
-    (1) expression -> expression . PLUS term
-    (2) expression -> expression . MINUS term
-
-    RPAREN          shift and go to state 34
-    PLUS            shift and go to state 12
-    MINUS           shift and go to state 13
-
-
-state 29
-
-    (10) factor -> COS LPAREN expression . RPAREN
-    (1) expression -> expression . PLUS term
-    (2) expression -> expression . MINUS term
-
-    RPAREN          shift and go to state 35
-    PLUS            shift and go to state 12
-    MINUS           shift and go to state 13
-
-
 state 30
 
-    (11) factor -> TAN LPAREN expression . RPAREN
+    (10) factor -> SIN LPAREN expression . RPAREN
     (1) expression -> expression . PLUS term
     (2) expression -> expression . MINUS term
 
@@ -591,7 +631,7 @@ state 30
 
 state 31
 
-    (12) factor -> LN LPAREN expression . RPAREN
+    (11) factor -> COS LPAREN expression . RPAREN
     (1) expression -> expression . PLUS term
     (2) expression -> expression . MINUS term
 
@@ -602,7 +642,7 @@ state 31
 
 state 32
 
-    (13) factor -> LOG LPAREN expression . RPAREN
+    (12) factor -> TAN LPAREN expression . RPAREN
     (1) expression -> expression . PLUS term
     (2) expression -> expression . MINUS term
 
@@ -613,7 +653,7 @@ state 32
 
 state 33
 
-    (14) factor -> EXP LPAREN expression . RPAREN
+    (13) factor -> LN LPAREN expression . RPAREN
     (1) expression -> expression . PLUS term
     (2) expression -> expression . MINUS term
 
@@ -624,72 +664,100 @@ state 33
 
 state 34
 
-    (9) factor -> SIN LPAREN expression RPAREN .
+    (14) factor -> LOG LPAREN expression . RPAREN
+    (1) expression -> expression . PLUS term
+    (2) expression -> expression . MINUS term
 
-    TIMES           reduce using rule 9 (factor -> SIN LPAREN expression RPAREN .)
-    DIVIDE          reduce using rule 9 (factor -> SIN LPAREN expression RPAREN .)
-    PLUS            reduce using rule 9 (factor -> SIN LPAREN expression RPAREN .)
-    MINUS           reduce using rule 9 (factor -> SIN LPAREN expression RPAREN .)
-    $end            reduce using rule 9 (factor -> SIN LPAREN expression RPAREN .)
-    RPAREN          reduce using rule 9 (factor -> SIN LPAREN expression RPAREN .)
+    RPAREN          shift and go to state 40
+    PLUS            shift and go to state 12
+    MINUS           shift and go to state 13
 
 
 state 35
 
-    (10) factor -> COS LPAREN expression RPAREN .
+    (15) factor -> EXP LPAREN expression . RPAREN
+    (1) expression -> expression . PLUS term
+    (2) expression -> expression . MINUS term
 
-    TIMES           reduce using rule 10 (factor -> COS LPAREN expression RPAREN .)
-    DIVIDE          reduce using rule 10 (factor -> COS LPAREN expression RPAREN .)
-    PLUS            reduce using rule 10 (factor -> COS LPAREN expression RPAREN .)
-    MINUS           reduce using rule 10 (factor -> COS LPAREN expression RPAREN .)
-    $end            reduce using rule 10 (factor -> COS LPAREN expression RPAREN .)
-    RPAREN          reduce using rule 10 (factor -> COS LPAREN expression RPAREN .)
+    RPAREN          shift and go to state 41
+    PLUS            shift and go to state 12
+    MINUS           shift and go to state 13
 
 
 state 36
 
-    (11) factor -> TAN LPAREN expression RPAREN .
+    (10) factor -> SIN LPAREN expression RPAREN .
 
-    TIMES           reduce using rule 11 (factor -> TAN LPAREN expression RPAREN .)
-    DIVIDE          reduce using rule 11 (factor -> TAN LPAREN expression RPAREN .)
-    PLUS            reduce using rule 11 (factor -> TAN LPAREN expression RPAREN .)
-    MINUS           reduce using rule 11 (factor -> TAN LPAREN expression RPAREN .)
-    $end            reduce using rule 11 (factor -> TAN LPAREN expression RPAREN .)
-    RPAREN          reduce using rule 11 (factor -> TAN LPAREN expression RPAREN .)
+    POWER           reduce using rule 10 (factor -> SIN LPAREN expression RPAREN .)
+    TIMES           reduce using rule 10 (factor -> SIN LPAREN expression RPAREN .)
+    DIVIDE          reduce using rule 10 (factor -> SIN LPAREN expression RPAREN .)
+    PLUS            reduce using rule 10 (factor -> SIN LPAREN expression RPAREN .)
+    MINUS           reduce using rule 10 (factor -> SIN LPAREN expression RPAREN .)
+    $end            reduce using rule 10 (factor -> SIN LPAREN expression RPAREN .)
+    RPAREN          reduce using rule 10 (factor -> SIN LPAREN expression RPAREN .)
 
 
 state 37
 
-    (12) factor -> LN LPAREN expression RPAREN .
+    (11) factor -> COS LPAREN expression RPAREN .
 
-    TIMES           reduce using rule 12 (factor -> LN LPAREN expression RPAREN .)
-    DIVIDE          reduce using rule 12 (factor -> LN LPAREN expression RPAREN .)
-    PLUS            reduce using rule 12 (factor -> LN LPAREN expression RPAREN .)
-    MINUS           reduce using rule 12 (factor -> LN LPAREN expression RPAREN .)
-    $end            reduce using rule 12 (factor -> LN LPAREN expression RPAREN .)
-    RPAREN          reduce using rule 12 (factor -> LN LPAREN expression RPAREN .)
+    POWER           reduce using rule 11 (factor -> COS LPAREN expression RPAREN .)
+    TIMES           reduce using rule 11 (factor -> COS LPAREN expression RPAREN .)
+    DIVIDE          reduce using rule 11 (factor -> COS LPAREN expression RPAREN .)
+    PLUS            reduce using rule 11 (factor -> COS LPAREN expression RPAREN .)
+    MINUS           reduce using rule 11 (factor -> COS LPAREN expression RPAREN .)
+    $end            reduce using rule 11 (factor -> COS LPAREN expression RPAREN .)
+    RPAREN          reduce using rule 11 (factor -> COS LPAREN expression RPAREN .)
 
 
 state 38
 
-    (13) factor -> LOG LPAREN expression RPAREN .
+    (12) factor -> TAN LPAREN expression RPAREN .
 
-    TIMES           reduce using rule 13 (factor -> LOG LPAREN expression RPAREN .)
-    DIVIDE          reduce using rule 13 (factor -> LOG LPAREN expression RPAREN .)
-    PLUS            reduce using rule 13 (factor -> LOG LPAREN expression RPAREN .)
-    MINUS           reduce using rule 13 (factor -> LOG LPAREN expression RPAREN .)
-    $end            reduce using rule 13 (factor -> LOG LPAREN expression RPAREN .)
-    RPAREN          reduce using rule 13 (factor -> LOG LPAREN expression RPAREN .)
+    POWER           reduce using rule 12 (factor -> TAN LPAREN expression RPAREN .)
+    TIMES           reduce using rule 12 (factor -> TAN LPAREN expression RPAREN .)
+    DIVIDE          reduce using rule 12 (factor -> TAN LPAREN expression RPAREN .)
+    PLUS            reduce using rule 12 (factor -> TAN LPAREN expression RPAREN .)
+    MINUS           reduce using rule 12 (factor -> TAN LPAREN expression RPAREN .)
+    $end            reduce using rule 12 (factor -> TAN LPAREN expression RPAREN .)
+    RPAREN          reduce using rule 12 (factor -> TAN LPAREN expression RPAREN .)
 
 
 state 39
 
-    (14) factor -> EXP LPAREN expression RPAREN .
+    (13) factor -> LN LPAREN expression RPAREN .
 
-    TIMES           reduce using rule 14 (factor -> EXP LPAREN expression RPAREN .)
-    DIVIDE          reduce using rule 14 (factor -> EXP LPAREN expression RPAREN .)
-    PLUS            reduce using rule 14 (factor -> EXP LPAREN expression RPAREN .)
-    MINUS           reduce using rule 14 (factor -> EXP LPAREN expression RPAREN .)
-    $end            reduce using rule 14 (factor -> EXP LPAREN expression RPAREN .)
-    RPAREN          reduce using rule 14 (factor -> EXP LPAREN expression RPAREN .)
+    POWER           reduce using rule 13 (factor -> LN LPAREN expression RPAREN .)
+    TIMES           reduce using rule 13 (factor -> LN LPAREN expression RPAREN .)
+    DIVIDE          reduce using rule 13 (factor -> LN LPAREN expression RPAREN .)
+    PLUS            reduce using rule 13 (factor -> LN LPAREN expression RPAREN .)
+    MINUS           reduce using rule 13 (factor -> LN LPAREN expression RPAREN .)
+    $end            reduce using rule 13 (factor -> LN LPAREN expression RPAREN .)
+    RPAREN          reduce using rule 13 (factor -> LN LPAREN expression RPAREN .)
+
+
+state 40
+
+    (14) factor -> LOG LPAREN expression RPAREN .
+
+    POWER           reduce using rule 14 (factor -> LOG LPAREN expression RPAREN .)
+    TIMES           reduce using rule 14 (factor -> LOG LPAREN expression RPAREN .)
+    DIVIDE          reduce using rule 14 (factor -> LOG LPAREN expression RPAREN .)
+    PLUS            reduce using rule 14 (factor -> LOG LPAREN expression RPAREN .)
+    MINUS           reduce using rule 14 (factor -> LOG LPAREN expression RPAREN .)
+    $end            reduce using rule 14 (factor -> LOG LPAREN expression RPAREN .)
+    RPAREN          reduce using rule 14 (factor -> LOG LPAREN expression RPAREN .)
+
+
+state 41
+
+    (15) factor -> EXP LPAREN expression RPAREN .
+
+    POWER           reduce using rule 15 (factor -> EXP LPAREN expression RPAREN .)
+    TIMES           reduce using rule 15 (factor -> EXP LPAREN expression RPAREN .)
+    DIVIDE          reduce using rule 15 (factor -> EXP LPAREN expression RPAREN .)
+    PLUS            reduce using rule 15 (factor -> EXP LPAREN expression RPAREN .)
+    MINUS           reduce using rule 15 (factor -> EXP LPAREN expression RPAREN .)
+    $end            reduce using rule 15 (factor -> EXP LPAREN expression RPAREN .)
+    RPAREN          reduce using rule 15 (factor -> EXP LPAREN expression RPAREN .)
 

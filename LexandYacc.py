@@ -3,7 +3,7 @@ import ply.yacc as yacc
 import math
 
 #our tokens
-tokens = ( 'NUMBER', 'PLUS', 'MINUS', 'TIMES', 'DIVIDE', 'LPAREN', 'RPAREN', 'SIN', 'COS', 'TAN', 'LN', 'LOG', 'EXP')
+tokens = ( 'NUMBER', 'PLUS', 'MINUS', 'TIMES', 'DIVIDE', 'LPAREN', 'RPAREN', 'POWER', 'SIN', 'COS', 'TAN', 'LN', 'LOG', 'EXP')
 
 # Regular expression rules for simple tokens
 t_PLUS = r'\+'
@@ -12,6 +12,7 @@ t_TIMES = r'\*'
 t_DIVIDE = r'/'
 t_LPAREN = r'\('
 t_RPAREN = r'\)'
+t_POWER = r'\^'
 
 t_SIN = r'sin'
 t_COS = r'cos'
@@ -38,6 +39,14 @@ t_ignore = ' \t' #we ignore white spaces
 def t_error(t):
     print(f"Illegal character '{t.value[0]}'")
     t.lexer.skip(1)
+
+#precedence rules for operators to handle ambiguity
+precedence = (
+    ('left', 'PLUS', 'MINUS'),
+    ('left', 'TIMES', 'DIVIDE'),
+    ('right', 'POWER')
+)
+
 
 #creates our lexer
 #lexer = lex.lex()
@@ -87,6 +96,10 @@ def p_factor_num(p):
 def p_factor_expr(p):
     'factor : LPAREN expression RPAREN'
     p[0] = p[2]
+
+def p_factor_power(p):
+    'factor : factor POWER factor'
+    p[0] = p[1] ** p[3]
 
 def p_factor_sin(p):
     'factor : SIN LPAREN expression RPAREN'
