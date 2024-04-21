@@ -200,6 +200,10 @@ def p_factor_exp(p):
     'factor : EXP LPAREN expression RPAREN'
     p[0] = math.exp(p[3])
 
+def p_expression_if_else(p):
+    '''expression : IF expression LT expression THEN expression ELSE expression'''
+    p[0] = p[6] if p[2] < p[4] else p[8]
+   
 # Error rule for syntax errors
 def p_error(p):
     print("Syntax error in input!")
