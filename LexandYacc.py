@@ -131,7 +131,7 @@ def p_ID_equal(p):
     print(symbol_table)
 
 def p_ID_equal_ID_assign(p):
-    'assignment : ID EQ ID'
+    'expression : ID EQ ID'
     symbol_table[p[1]] = p[3]
     p[0] = f"Assigned value {p[3]} to identifier {p[1]}"
     print(symbol_table)
