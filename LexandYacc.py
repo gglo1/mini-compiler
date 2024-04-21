@@ -203,7 +203,18 @@ def p_factor_exp(p):
 def p_expression_if_else(p):
     '''expression : IF expression LT expression THEN expression ELSE expression'''
     p[0] = p[6] if p[2] < p[4] else p[8]
-   
+
+def p_expression_while_loop(p):
+    '''expression : WHILE expression LT expression THEN expression ELSE expression'''
+    while p[2] < p[4]:
+        p[0] = p[6]  
+        print(p[0])  
+        p[2] += 1    
+    else:
+        p[0] = p[8]  
+#works only with numbers
+
+
 # Error rule for syntax errors
 def p_error(p):
     print("Syntax error in input!")
