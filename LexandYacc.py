@@ -9,8 +9,11 @@ reserved = {
    'then' : 'THEN',
    'else' : 'ELSE',
    'while' : 'WHILE',
+   'sin'  : 'SIN',
+   'cos' : 'COS',
+   'tan' : 'TAN'
 }
-tokens = ( 'NUMBER', 'PLUS', 'MINUS', 'TIMES', 'DIVIDE', 'LPAREN', 'RPAREN', 'POWER', 'SIN', 'COS', 'TAN', 'LN', 'LOG', 'EXP',
+tokens = ( 'NUMBER', 'PLUS', 'MINUS', 'TIMES', 'DIVIDE', 'LPAREN', 'RPAREN', 'POWER','LN', 'LOG', 'EXP',
           'EQ', 'NEQ', 'LT', 'GT', 'ID',) + tuple(reserved.values())
 
 # Regular expression rules for simple tokens
@@ -27,9 +30,7 @@ t_NEQ = r'!='
 t_LT = r'<'
 t_GT = r'>'
 
-t_SIN = r'sin'
-t_COS = r'cos'
-t_TAN = r'tan'
+
 t_LN = r'ln'
 t_LOG = r'log'
 t_EXP = r'exp'
