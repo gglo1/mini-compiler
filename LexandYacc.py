@@ -123,6 +123,10 @@ def p_factor_power(p):
 def p_expression_equal(p):
     'expression : expression EQ expression'
     p[0] = p[1] == p[3]
+   
+def p_ID_equal(p):
+    'expression : ID EQ expression'
+    p[0] = p[1] == p[3]
 
 def p_expression_not_equal(p):
     'expression : expression NEQ expression'
