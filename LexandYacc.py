@@ -41,8 +41,10 @@ def t_ID(t):
     return t
     
 def t_NUMBER(t):
-    r'\d+'
-    t.value = int(t.value)
+#    r'\d+'
+#    t.value = int(t.value)
+    r'\d+(\.\d+)?'
+    t.value = float(t.value)
     return t
 
 #track line numbers
@@ -242,7 +244,8 @@ def main():
     parser = yacc.yacc()
 
     result = parser.parse(data)
-    print(result)
+    format_result = int(result) if result.is_integer() else result
+    print(format_result)
 
 if __name__ == "__main__":
     main()
